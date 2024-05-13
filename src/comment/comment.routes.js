@@ -20,7 +20,7 @@ router.get(
 );
 
 router.post(
-    "/create",
+    "/createComment",
     [
         check("postId", "this comment is required").not().isEmpty(),
         check("comment", "this id is required").not().isEmpty(),
@@ -31,7 +31,7 @@ router.post(
 );
 
 router.put(
-    "/edit/:id",
+    "/updateComment",
     [
         check("id", "This id is not valid").isMongoId(),
         check("id").custom(existsCommentById),
@@ -40,7 +40,7 @@ router.put(
 );
 
 router.delete(
-    "/delete/:id",
+    "/deleteComment",
     [
         check("id", "This id is not valid").isMongoId(),
         check("id").custom(existsCommentById),

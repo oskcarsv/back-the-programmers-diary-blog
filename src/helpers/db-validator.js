@@ -7,3 +7,12 @@ export const existsPostById = async (id = '') => {
         throw new Error(`The post with ID: ${id} does not exist`);
     }
 }
+
+export const existsCommentById = async (id = '') => {
+    
+    const existsComment = await Comment.findById(id);
+    
+    if(!existsComment){
+        throw new Error(`The ID: ${id} does not exist`);
+    }
+}

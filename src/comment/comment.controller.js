@@ -60,8 +60,7 @@ export const getCommentById = async (req, res) => {
 
 export const updateComment = async (req, res) => {
 
-    const { id } = req.params;
-    const { _id, state, postId, ...rest} = req.body;
+    const { id, _id, state, postId, ...rest} = req.body;
 
     await Comment.findByIdAndUpdate(id, rest);
     const comments = await Comment.findOne({_id: id});
@@ -74,7 +73,7 @@ export const updateComment = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
 
-    const { id } = req.params;
+    const { id } = req.body;
     
     await Comment.findByIdAndUpdate(id, { state: false });
     const comments = await Comment.findOne({ _id: id });
@@ -83,5 +82,4 @@ export const deleteComment = async (req, res) => {
         msg: 'Comment successfully delete',
         comments
     });
-
 }
