@@ -6,7 +6,7 @@ const PostSchema = Schema({
   author: {
     type: Schema.ObjectId,
     ref: 'User',
-    required: [true, "The user id is required"],
+    required: [true, "The author id is required"],
   },
   title: {
     type: String,
