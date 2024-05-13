@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import bcryptjs from 'bcryptjs';
 import { dbConnection } from './mongo.js';
 import postRoutes from '../src/post/post.routes.js';
+import commentRoutes from '../src/comment/comment.routes.js';
     
 
 class Server{
@@ -14,6 +15,7 @@ class Server{
         this.app = express();
         this.port = process.env.PORT;
         this.postPath = '/programmers-diary/v1/post';
+        this.commentPath = '/programmers-diary/v1/comment';
 
         this.middlewares();
         this.connectDB();
@@ -34,6 +36,7 @@ class Server{
 
     routes() {
         this.app.use(this.postPath, postRoutes);
+        this.app.use(this.commentPath, commentRoutes);
     }
 
     listen(){

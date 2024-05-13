@@ -15,7 +15,7 @@ const router = Router();
 router.get("/", getPost);
 
 router.get(
-    "/",
+    "/getById/",
     [
         check("id", "ID is required").not().isEmpty(),
         check("id", "This id is not valid").isMongoId(),
@@ -37,7 +37,7 @@ router.post(
 );
 
 router.put(
-    "/updatePost/",
+    "/updatePost",
     [
         check("id", "ID is required").not().isEmpty(),
         check("id", "This id is not valid").isMongoId(),
@@ -48,7 +48,7 @@ router.put(
 );
 
 router.delete(
-    "/delete/",
+    "/deletePost",
     [
         check("id", "ID is required").not().isEmpty(),
         check("id", "This id is not valid").isMongoId(),

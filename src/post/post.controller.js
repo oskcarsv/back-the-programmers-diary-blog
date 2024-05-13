@@ -2,6 +2,7 @@ import { response, request } from "express";
 import Post from "./post.model.js";
 
 export const getPost = async (req = request, res = response) => {
+    
     const { limit, from } = req.query;
     const query = { state: true };
 
@@ -9,14 +10,19 @@ export const getPost = async (req = request, res = response) => {
         const [total, post] = await Promise.all([
             Post.countDocuments(query),
             Post.find(query)
-                .populate("author", "name")
+                .populate({
+                    path: 'comment',
+                    select: 'comment author -_id',
+                    match: { state: true }
+                })
                 .skip(Number(from))
-                .limit(Number(limit)),
+                .limit(Number(limit))
+                .lean()
         ]);
 
         res.status(200).json({
             total,
-            posts
+            post
         });
 
     } catch (error) {
@@ -26,8 +32,13 @@ export const getPost = async (req = request, res = response) => {
 };
 
 export const createPost = async (req, res) => {
+    const { author, title, content, img, pin } = req.body;
 
-    const { author, title, content, img } = req.body;
+    const correctPin = "1234";
+
+    if (pin !== correctPin) {
+        return res.status(403).json({ message: 'Incorrect pin' });
+    }
 
     try {
         const post = new Post({ author, title, content, img });
@@ -42,6 +53,8 @@ export const createPost = async (req, res) => {
         res.status(500).json({ message: 'Error creating post' });
     }
 }
+
+
 
 export const getPostById = async (req, res) => {
 
