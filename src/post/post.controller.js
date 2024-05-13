@@ -4,25 +4,19 @@ import Post from "./post.model.js";
 export const getPost = async (req = request, res = response) => {
     
     const { limit, from } = req.query;
-    const query = { state: true };
+    const query = { status: true };
 
     try {
-        const [total, post] = await Promise.all([
+        const [total, posts] = await Promise.all([
             Post.countDocuments(query),
             Post.find(query)
-                .populate({
-                    path: 'comment',
-                    select: 'comment author -_id',
-                    match: { state: true }
-                })
                 .skip(Number(from))
                 .limit(Number(limit))
-                .lean()
         ]);
 
         res.status(200).json({
             total,
-            post
+            posts
         });
 
     } catch (error) {
