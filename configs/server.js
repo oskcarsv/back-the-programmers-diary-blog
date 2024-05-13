@@ -6,13 +6,14 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import bcryptjs from 'bcryptjs';
 import { dbConnection } from './mongo.js';
+import postRoutes from '../src/post/post.routes.js';
 
 
 class Server{
     constructor(){
         this.app = express();
         this.port = process.env.PORT;
-        // this.usuarioPath = '/products-storage/v1/user';
+        this.postPath = '/programmers-diary/v1/post';
 
         this.middlewares();
         this.connectDB();
@@ -32,7 +33,7 @@ class Server{
     }
 
     routes() {
-        // this.app.use(this.usuarioPath, userRoutes);
+        this.app.use(this.postPath, postRoutes);
     }
 
     listen(){
