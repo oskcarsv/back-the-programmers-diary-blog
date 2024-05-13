@@ -48,8 +48,6 @@ export const createPost = async (req, res) => {
     }
 }
 
-
-
 export const getPostById = async (req, res) => {
 
     const { id } = req.body;

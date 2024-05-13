@@ -3,27 +3,42 @@ import Post from "../post/post.model.js";
 import Comment from "./comment.model.js"
 
 export const getComment = async (req = request, res = response) => {
-
+    
     const { limit, from } = req.query;
-    const query = { state: true };
+    const query = { status: true };
 
     try {
-        const [total, comments] = await Promise.all([
-            Comment.countDocuments(query),
-            Comment.find(query)
+        const [total, posts] = await Promise.all([
+            Post.countDocuments(query),
+            Post.find(query)
+                .populate({
+                    path: 'comments',
+                    model: 'Comment'
+                })
                 .skip(Number(from))
                 .limit(Number(limit))
         ]);
 
         res.status(200).json({
             total,
-            comments
+            posts
         });
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Error retrieving comments' });
+        res.status(500).json({ message: 'Error retrieving posts' });
     }
+};
+
+
+export const getCommentById = async (req, res) => {
+
+    const { id } = req.params;
+    const comments = await Comment.findOne({ _id: id });
+
+    res.status(200).json({
+        comments
+    });
 }
 
 export const createPost = async (req, res) => {
@@ -52,16 +67,6 @@ export const createPost = async (req, res) => {
         console.error(error);
         res.status(500).json({ message: 'Error creating comment' });
     }
-}
-
-export const getCommentById = async (req, res) => {
-
-    const { id } = req.params;
-    const comments = await Comment.findOne({ _id: id });
-
-    res.status(200).json({
-        comments
-    });
 }
 
 export const updateComment = async (req, res) => {
