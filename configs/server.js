@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import bcryptjs from 'bcryptjs';
 import { dbConnection } from './mongo.js';
 import postRoutes from '../src/post/post.routes.js';
-
+    
 
 class Server{
     constructor(){

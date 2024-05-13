@@ -12,7 +12,7 @@ import { existsPostById } from "../helpers/db-validator.js";
 
 const router = Router();
 
-router.get("/", getPot);
+router.get("/", getPost);
 
 router.get(
     "/",
@@ -28,9 +28,9 @@ router.get(
 router.post(
     "/createPost",
     [
-        check("title", "Tittle is required").not().isEmpty(),
-        check("description", "Description is required").not().isEmpty(),
         check("author", "Author is required").not().isEmpty(),
+        check("title", "Tittle is required").not().isEmpty(),
+        check("content", "Description is required").not().isEmpty(),
         validateFields,
     ],
     createPost

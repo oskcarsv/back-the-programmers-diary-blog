@@ -1,11 +1,9 @@
-'use strict';
 
-import { Schema, model } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
-const PostSchema = Schema({
+const PostSchema = mongoose.Schema({
   author: {
-    type: Schema.ObjectId,
-    ref: 'User',
+    type: String,
     required: [true, "The author id is required"],
   },
   title: {
@@ -23,11 +21,11 @@ const PostSchema = Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Comment'
   }],
-  estado: {
+  status: {
     type: Boolean,
     default: true,
   },
 });
 
 
-export default model('Post', PostSchema);
+export default mongoose.model('Post', PostSchema);
