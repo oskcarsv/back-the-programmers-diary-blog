@@ -1,4 +1,4 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema } from "mongoose";
 
 const PostSchema = mongoose.Schema({
   author: {
@@ -16,15 +16,16 @@ const PostSchema = mongoose.Schema({
   img: {
     type: String,
   },
-  comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment'
-  }],
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    },
+  ],
   status: {
     type: Boolean,
     default: true,
   },
 });
 
-
-export default mongoose.model('Post', PostSchema);
+export default mongoose.model("Post", PostSchema);
