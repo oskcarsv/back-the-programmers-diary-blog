@@ -14,7 +14,7 @@ const commentSchema = mongoose.Schema({
     ref: "Post",
     required: true,
   },
-  state: {
+  status: {
     type: Boolean,
     default: true,
   },

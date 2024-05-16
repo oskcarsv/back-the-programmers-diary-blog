@@ -55,7 +55,7 @@ export const getPostById = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
-  const { id, _id, state, ...rest } = req.body;
+  const { id, _id, status, ...rest } = req.body;
 
   await Post.findByIdAndUpdate(id, rest);
   const post = await Post.findOne({ _id: id });
@@ -67,9 +67,9 @@ export const updatePost = async (req, res) => {
 };
 
 export const deletePost = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
-  await Post.findByIdAndUpdate(id, { state: false });
+  await Post.findByIdAndUpdate(id, { status: false });
   const post = await Post.findOne({ _id: id });
 
   res.status(200).json({
