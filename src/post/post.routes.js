@@ -47,7 +47,7 @@ router.put(
 );
 
 router.delete(
-  "/deletePost",
+  "/deletePost/:id",
   [
     check("id", "ID is required").not().isEmpty(),
     check("id", "This id is not valid").isMongoId(),

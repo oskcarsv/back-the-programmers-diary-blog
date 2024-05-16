@@ -46,7 +46,7 @@ router.put(
 );
 
 router.delete(
-  "/deleteComment",
+  "/deleteComment/:id",
   [
     check("id", "This id is not valid").isMongoId(),
     check("id").custom(existsCommentById),

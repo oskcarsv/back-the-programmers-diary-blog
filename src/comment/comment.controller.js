@@ -76,7 +76,7 @@ export const updateComment = async (req, res) => {
 };
 
 export const deleteComment = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   await Comment.findByIdAndUpdate(id, { status: false });
   const comments = await Comment.findOne({ _id: id });
