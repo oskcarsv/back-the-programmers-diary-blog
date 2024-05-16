@@ -22,15 +22,7 @@ export const getPost = async (req = request, res = response) => {
 };
 
 export const createPost = async (req, res) => {
-  const { author, title, content, img, pin } = req.body;
-
-  const correctPin = "1234";
-
-  if (pin !== correctPin) {
-    return res.status(403).json({
-      message: "Only the administrator can create a post, please try again.",
-    });
-  }
+  const { author, title, content, img } = req.body;
 
   try {
     const post = new Post({ author, title, content, img });
