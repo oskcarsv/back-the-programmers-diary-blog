@@ -15,9 +15,8 @@ const router = Router();
 router.get("/getPost", getPost);
 
 router.get(
-  "/getById",
+  "/getPostById/:id",
   [
-    check("id", "ID is required").not().isEmpty(),
     check("id", "This id is not valid").isMongoId(),
     check("id").custom(existsPostById),
     validateFields,
