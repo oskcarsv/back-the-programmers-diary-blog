@@ -12,10 +12,10 @@ import { existsPostById } from "../helpers/db-validator.js";
 
 const router = Router();
 
-router.get("/", getPost);
+router.get("/getPost", getPost);
 
 router.get(
-    "/getById/",
+    "/getById",
     [
         check("id", "ID is required").not().isEmpty(),
         check("id", "This id is not valid").isMongoId(),
